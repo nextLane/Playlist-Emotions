@@ -253,6 +253,18 @@ public class trial {
 		    }
 		    
 		    
+		    double overallWeight = emoWeights[0]+ emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4]+emoWeights[5];
+		    System.out.println("Happy:" + (emoWeights[0]*100)/overallWeight);
+		    System.out.println("Sad:" + (emoWeights[1]*100)/overallWeight);
+		    System.out.println("Anger:" + (emoWeights[2]*100)/overallWeight);
+		    System.out.println("Fear:" + (emoWeights[3]*100)/overallWeight);
+		    System.out.println("Disgust:" + (emoWeights[4]*100)/overallWeight);
+		    System.out.println("Surprise:" + (emoWeights[5]*100)/overallWeight);
+		    
+		    
+		    
+		    
+		    
 		    double positiveSentiment= (emoWeights[0]+emoWeights[5])/2;
 		    double negativeSentiment= (emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4])/4;
 		    
