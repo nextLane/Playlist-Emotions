@@ -115,26 +115,31 @@ public class trial {
 		    ArrayList<String> searchSongs=getSongs(path);
 		    
 		    String search= "Lyrics Alexandra Stan - Lemonade 32";
-		    System.out.println(getLyricsUrl(search));
 		    
-		    System.out.println(getLyrics(getLyricsUrl(search)));
+		    String lyrics="";
+		    try
+		    {
+		    	lyrics=getLyrics(getLyricsUrl(search));
+			    
+		    }
+		    catch(Exception e)
+		    {
+		    	System.out.println("Must be bad internet connection!");
+		    	e.printStackTrace();
+		    }
 		    
-		    /*
-		    		Empathyscope es;
-		String str1= "Totally fucked up, I felt like crying today, want someone to lean on , missing my friend badly.";
-		String str2="This red love, this remorse of love, this defect that love is, this enmity of love, Love, love, love, I have had such an enmity with you, That I haven't remained like myself anymore";
-	String str3= "(Hey) now we got problems And I don't think we can solve them You made a really deep cut And baby now we got bad blood (Hey) did you have to do this I was thinking that you could be trusted Did you have to ruin what was shining now it's all rusted"+
-"Did you have to hit me where I am weak baby I couldnt breathe";
-		try {
-			es = new Empathyscope();
+		    
+		    Empathyscope es;
+		    try {
+		    	es = new Empathyscope();
 		
-			System.out.println("Feel goes here:" +es.feel(str3));
+		    	System.out.println("Feel goes here:" +es.feel(lyrics));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	*/
+	
 	}
 
 
