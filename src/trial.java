@@ -23,7 +23,7 @@ public class trial {
 		    for (int i = 0; i < listOfFiles.length; i++) {
 		      if (listOfFiles[i].isFile()) {
 		    	  if(listOfFiles[i].getName().contains(".mp3") ||listOfFiles[i].getName().contains(".wav"))
-		        searchSongs.add("Lyrics "+listOfFiles[i].getName().replace(".mp3", ""));
+		        searchSongs.add("English Lyrics "+listOfFiles[i].getName().replace(".mp3", ""));
 		      } 
 		    }
 		    
@@ -32,8 +32,10 @@ public class trial {
 	public static String getLyrics(String url)
 	{
 		String lyrics="";
+		if(url.equals(null))
+			return lyrics;
 		
-		if(url.contains("direct"))
+		if(url.contains("lyricsfreak"))
 		{
 			Document doc;
 			try {
@@ -47,25 +49,109 @@ public class trial {
 				
 			}
 
-			// Select the <p> Elements from the document
+			Element division= doc.getElementById("content_h");
+
+			
 		
-			Elements paragraphs = doc.select("p");
+			    
+			    	lyrics+=division.text()+" ";
+			}
+	
+		else  if(url.contains("metro"))
+		{
+
+			Document doc;
+			try {
+				doc = Jsoup.connect(url).get();
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Corrupted URL");
+				e1.printStackTrace();
+				return lyrics;
+				
+			}
+			
+			Element division= doc.getElementById("lyrics-body-text");
+			Elements paragraphs = division.getElementsByTag("p");
+			// Select the <p> Elements from the document
+			
 
 			// For each selected <p> element, print out its text
-			int count=0;
+			
 			for (Element e : paragraphs) {
-			    if(count>0)
-			    {
+			   
 			    	lyrics+=e.text()+" ";
-			    }
-			    //chances of slight error in emotion , one/two facts may be involved
-				count ++;
+			    
+			  
 			}
-		}
-		else
-		{
+
+			System.out.println("Metro exists");
 			
 		}
+		//bollywood song case
+		else if(url.contains("hindilyrics"))
+		{
+			System.out.println("*** Bollywood Song ***");
+			
+			Document doc;
+			try {
+				doc = Jsoup.connect(url).get();
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Corrupted URL");
+				e1.printStackTrace();
+				return lyrics;
+				
+			}
+			
+			Elements ee = doc.getElementsByAttributeValueStarting("id", "t");
+
+			for (Element e : ee) {
+			   
+			    	lyrics+=e.text()+" ";
+			    
+			  
+			}
+						  
+			
+
+
+		}
+		
+		else
+		{
+			System.out.println("*** Bollywood Song bolly wala***");
+			
+			Document doc;
+			try {
+				doc = Jsoup.connect(url).get();
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Corrupted URL");
+				e1.printStackTrace();
+				return lyrics;
+				
+			}
+			
+			Elements ee = doc.getElementsByAttributeValueStarting("itemprop", "description articleBody");
+
+			for (Element e : ee) {
+			       System.out.println("processing...");
+			    	lyrics+=e.text()+" ";
+			    
+			  
+			}
+						  
+
+		}
+		
+		lyrics.replaceAll("<br>", " ");
+		lyrics.replaceAll("</br>", " ");
+		lyrics.replaceAll("<p>", " ");
+		lyrics.replaceAll("</p>", " ");
 		
 		return lyrics;
 		
@@ -90,7 +176,7 @@ public class trial {
 	        if (!url.startsWith("http")) {
 	            continue; // Ads/news/etc.
 	        }
-            if (url.contains("www.metrolyrics.com") || url.contains("www.directlyrics.com"))
+            if (url.contains("www.metrolyrics.com") || url.contains("www.lyricsfreak.com") || url.contains("www.hindilyrics.net") || url.contains("www.bollymeaning.com"))
             {
             	return url;
             }
@@ -114,32 +200,40 @@ public class trial {
 		    String path= "C:\\Users\\.hp\\Music";
 		    ArrayList<String> searchSongs=getSongs(path);
 		    
-		    String search= "Lyrics Alexandra Stan - Lemonade 32";
 		    
-		    String lyrics="";
-		    try
+		    for(int index=0; index<searchSongs.size() ; index++)
 		    {
-		    	lyrics=getLyrics(getLyricsUrl(search));
+		    	String search= searchSongs.get(index);
 			    
-		    }
-		    catch(Exception e)
-		    {
-		    	System.out.println("Must be bad internet connection!");
-		    	e.printStackTrace();
-		    }
-		    
-		    
-		    Empathyscope es;
-		    try {
-		    	es = new Empathyscope();
-		
-		    	System.out.println("Feel goes here:" +es.feel(lyrics));
+			    String lyrics="";
+			    String lyricsUrl="";
+			    try
+			    {
+			    	lyricsUrl=getLyricsUrl(search);
+			    	System.out.println("****URL***:"+lyricsUrl);
+			    	lyrics=getLyrics(lyricsUrl);
+				    
+			    }
+			    catch(Exception e)
+			    {
+			    	System.out.println("Must be bad internet connection!");
+			    	e.printStackTrace();
+			    }
+			    
+			    
+			    Empathyscope es;
+			    try {
+			    	es = new Empathyscope();
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+			    	System.out.println("Feel goes here:" +es.feel(lyrics));
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+
+		    }
 	}
 
 
