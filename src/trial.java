@@ -11,6 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import synesketch.emotion.EmotionalState;
 import synesketch.emotion.Empathyscope;
 
 public class trial {
@@ -32,7 +33,7 @@ public class trial {
 	public static String getLyrics(String url)
 	{
 		String lyrics="";
-		if(url.equals(null))
+		if(url==null)
 			return lyrics;
 		
 		if(url.contains("lyricsfreak"))
@@ -196,8 +197,8 @@ public class trial {
 	
 	public static void main(String args[])
 	{
-		
-		    String path= "C:\\Users\\.hp\\Music";
+			double []emoWeights = new double[6];
+		    String path= "C:\\Users\\.hp\\Music\\MobileSongs";
 		    ArrayList<String> searchSongs=getSongs(path);
 		    
 		    
@@ -224,8 +225,20 @@ public class trial {
 			    Empathyscope es;
 			    try {
 			    	es = new Empathyscope();
-			
-			    	System.out.println("Feel goes here:" +es.feel(lyrics));
+			    	EmotionalState emo= es.feel(lyrics);
+			    	System.out.println("Feel goes here:" +emo);
+			    	
+			        emoWeights[0]+= emo.getHappinessWeight();
+			        emoWeights[1]+= emo.getSadnessWeight();
+			        emoWeights[2]+= emo.getAngerWeight();
+			        emoWeights[3]+= emo.getFearWeight();
+			        emoWeights[4]+= emo.getDisgustWeight();
+			        emoWeights[5]+= emo.getDisgustWeight();
+			        
+			        
+			       
+			        
+			    	
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -234,6 +247,13 @@ public class trial {
 		
 
 		    }
+		    
+		    
+		    double positiveSentiment= (emoWeights[0]+emoWeights[5])/2;
+		    double negativeSentiment= (emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4])/4;
+		    
+		    System.out.println("Positivity:"+ (positiveSentiment)*100/(positiveSentiment+negativeSentiment)+"%  Negative Sentiment:"+(negativeSentiment)*100/(positiveSentiment+negativeSentiment)+"%");
+		    
 	}
 
 
