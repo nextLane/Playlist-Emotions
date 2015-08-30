@@ -197,6 +197,7 @@ public class trial {
 	
 	public static void main(String args[])
 	{
+			int numSongsAnalysed=0;
 			double []emoWeights = new double[6];
 		    String path= "C:\\Users\\.hp\\Music\\MobileSongs";
 		    ArrayList<String> searchSongs=getSongs(path);
@@ -228,6 +229,9 @@ public class trial {
 			    	EmotionalState emo= es.feel(lyrics);
 			    	System.out.println("Feel goes here:" +emo);
 			    	
+			    	if(emo.getGeneralWeight()>0.0)
+			    		numSongsAnalysed++;
+			    	
 			        emoWeights[0]+= emo.getHappinessWeight();
 			        emoWeights[1]+= emo.getSadnessWeight();
 			        emoWeights[2]+= emo.getAngerWeight();
@@ -253,7 +257,8 @@ public class trial {
 		    double negativeSentiment= (emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4])/4;
 		    
 		    System.out.println("Positivity:"+ (positiveSentiment)*100/(positiveSentiment+negativeSentiment)+"%  Negative Sentiment:"+(negativeSentiment)*100/(positiveSentiment+negativeSentiment)+"%");
-		    
+		    System.out.println((numSongsAnalysed*100/searchSongs.size()) +" % of your playlist analyzed!");
+			    
 	}
 
 
