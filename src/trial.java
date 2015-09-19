@@ -1,6 +1,9 @@
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Label;
+=======
+>>>>>>> origin/master
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -8,9 +11,12 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+=======
+>>>>>>> origin/master
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +29,10 @@ public class trial {
 	
 	public static ArrayList<String> getSongs(String path)
 	{
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 		ArrayList<String> searchSongs= new ArrayList<String>();
@@ -201,6 +210,7 @@ public class trial {
 	   
 	}
 	
+<<<<<<< HEAD
 	public Result mainMethod(String path)
 	{
 		
@@ -215,6 +225,13 @@ public class trial {
 			int numSongsAnalysed=0;
 			double []emoWeights = new double[6];
 		//    String path="C:\\Users\\.hp\\Music";
+=======
+	public static void main(String args[])
+	{
+			int numSongsAnalysed=0;
+			double []emoWeights = new double[6];
+		    String path= "C:\\Users\\.hp\\Music\\MobileSongs";
+>>>>>>> origin/master
 		    ArrayList<String> searchSongs=getSongs(path);
 		    
 		    
@@ -251,7 +268,11 @@ public class trial {
 			        emoWeights[1]+= emo.getSadnessWeight();
 			        emoWeights[2]+= emo.getAngerWeight();
 			        emoWeights[3]+= emo.getFearWeight();
+<<<<<<< HEAD
 			        emoWeights[4]+= emo.getSurpriseWeight();
+=======
+			        emoWeights[4]+= emo.getDisgustWeight();
+>>>>>>> origin/master
 			        emoWeights[5]+= emo.getDisgustWeight();
 			        
 			        
@@ -269,6 +290,7 @@ public class trial {
 		    
 		    
 		    double overallWeight = emoWeights[0]+ emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4]+emoWeights[5];
+<<<<<<< HEAD
 		  
 		    emoWeights[0]= (emoWeights[0]*100)/overallWeight;
 		    emoWeights[1]= (emoWeights[1]*100)/overallWeight;
@@ -289,6 +311,24 @@ public class trial {
 		    r.setMessage();
 		    System.out.println((numSongsAnalysed*100/searchSongs.size()) +" % of your playlist analyzed!");
 			return r;
+=======
+		    System.out.println("Happy:" + (emoWeights[0]*100)/overallWeight);
+		    System.out.println("Sad:" + (emoWeights[1]*100)/overallWeight);
+		    System.out.println("Anger:" + (emoWeights[2]*100)/overallWeight);
+		    System.out.println("Fear:" + (emoWeights[3]*100)/overallWeight);
+		    System.out.println("Disgust:" + (emoWeights[4]*100)/overallWeight);
+		    System.out.println("Surprise:" + (emoWeights[5]*100)/overallWeight);
+		    
+		    
+		    
+		    
+		    
+		    double positiveSentiment= (emoWeights[0]+emoWeights[5])/2;
+		    double negativeSentiment= (emoWeights[1]+emoWeights[2]+emoWeights[3]+emoWeights[4])/4;
+		    
+		    System.out.println("Positivity:"+ (positiveSentiment)*100/(positiveSentiment+negativeSentiment)+"%  Negative Sentiment:"+(negativeSentiment)*100/(positiveSentiment+negativeSentiment)+"%");
+		    System.out.println((numSongsAnalysed*100/searchSongs.size()) +" % of your playlist analyzed!");
+>>>>>>> origin/master
 			    
 	}
 
